@@ -1,0 +1,47 @@
+.header-container {
+  height: 20vh;
+  background-color: #cce6f4;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 1em;
+}
+
+.cat-icon,
+.fav-icon {
+  font-size: 3em;
+  padding-top: 1em;
+  transition: 0.4s;
+}
+.cat-icon {
+  color: #175676;
+}
+.fav-icon {
+  color: #d62839;
+}
+.cat-btn,
+.fav-btn {
+  padding: 0.5em 0.5em;
+  background-color: inherit;
+  border: none;
+}
+.cat-btn {
+  padding-top: 0.75em;
+}
+.cat-icon:hover,
+.fav-icon:hover {
+  cursor: pointer;
+  font-size: 4em;
+}
+.cat-icon:hover {
+  color: #4ba3c3;
+}
+.fav-icon:hover {
+  color: #e02c2c;
+}
+.counters {
+  display: flex;
+}
+.counter {
+  padding-top: 1em;
+  font-size: 3em;
+}

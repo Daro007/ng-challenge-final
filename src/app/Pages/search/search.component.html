@@ -1,0 +1,63 @@
+<div class="loading">
+  <app-loading-spinner *ngIf="!ownersArray"></app-loading-spinner>
+</div>
+
+<div>
+  <div class="wrapper">
+    <!-- left column -->
+
+    <div class="container owners-container">
+      <div class="form-group form-flex">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by name..."
+          name="filterOwner"
+          [(ngModel)]="filterOwner"
+        />
+        <button class="btn btn-primary" (click)="filterOwnerByName()">
+          Search
+        </button>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr class="table-header">
+            <th>Full name</th>
+            <th>Gender</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody class="owner" *ngFor="let owner of ownersArray">
+          <tr (click)="showOwnerDetails(owner)">
+            <td>{{ owner.first_name }} {{ owner.last_name }}</td>
+            <td>{{ owner.gender }}</td>
+            <td>{{ owner.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-primary" (click)="showMore()">Show more</button>
+    </div>
+
+    <!-- right column -->
+    <div class="owners-details-container" [hidden]="!rowSelected">
+      <div>
+        <h2>{{ rowSelected?.first_name }} {{ rowSelected?.last_name }}</h2>
+        <p><strong>Gender: </strong>{{ rowSelected?.gender }}</p>
+        <p><strong>Date of Birth: </strong>{{ rowSelected?.dob }}</p>
+        <p><strong>E-mail: </strong>{{ rowSelected?.email }}</p>
+        <p><strong>Phone: </strong>{{ rowSelected?.phone }}</p>
+        <p>
+          <strong>Website: </strong
+          ><a href="{{ rowSelected?.website }}" target="_blank">
+            {{ rowSelected?.website }}</a
+          >
+        </p>
+        <p><strong>Address: </strong>{{ rowSelected?.address }}</p>
+        <p><strong>Status: </strong>{{ rowSelected?.status }}</p>
+        <button (click)="addToFav(rowSelected)" class="btn btn-danger">
+          Add to Favourites
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

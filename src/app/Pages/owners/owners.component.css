@@ -1,0 +1,41 @@
+.loading {
+  display: grid;
+  place-content: center;
+}
+.owner {
+  border: 2px solid #175676;
+  padding: 1em;
+}
+.owner:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.owners-container {
+  width: 40%;
+  margin-bottom: 10em;
+  margin-right: 50%;
+}
+.owners-details-container {
+  position: fixed;
+  right: 0;
+  top: 4;
+  margin-right: 2em;
+
+  border: 2px solid #175676;
+  padding: 2em;
+  width: 40%;
+  height: 65vh;
+}
+.wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2em;
+}
+.table-header {
+  background-color: #175676;
+  color: #ffffff;
+  font-size: 1.5em;
+}
