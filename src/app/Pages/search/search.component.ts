@@ -15,13 +15,17 @@ export class SearchComponent implements OnInit {
   public rowSelected: any;
   public filterOwner: string;
 
+  public smallFeedback: boolean;
+
   page = '1';
 
-  count: string;
+  countFavs: string;
+  deadCats: string;
 
   constructor(
     private _apiService: ApiService,
-    private counter: CountersService
+    private counter: CountersService,
+    private deadCatsCounter: CountersService
   ) {}
 
   showOwnerDetails(param) {
@@ -30,6 +34,7 @@ export class SearchComponent implements OnInit {
   }
 
   showMore() {
+    this.catKiller();
     const currentPage = parseInt(this.page) + 1;
     this.page = currentPage.toString();
     console.log(`${this.page}`);
@@ -43,11 +48,11 @@ export class SearchComponent implements OnInit {
   addToFav(owner) {
     if (owner) {
       const currentFavs = JSON.parse(sessionStorage.getItem('favs'));
-      if (currentFavs) {
+      let checkingDuplicates = currentFavs.some((elem) => elem.id === owner.id);
+      if (currentFavs && !checkingDuplicates) {
         currentFavs.push(owner);
         sessionStorage.setItem('favs', JSON.stringify(currentFavs));
         this.favCurrentCount();
-        // console.log(JSON.stringify(currentFavs));
       }
       console.log(currentFavs);
     } else {
@@ -63,10 +68,24 @@ export class SearchComponent implements OnInit {
   }
 
   filterOwnerByName() {
-    this._apiService
-      .getOwnersByName(this.filterOwner)
-      .subscribe((data) => (this.ownersArray = data.result));
-    console.log(this.owners);
+    if (this.filterOwner && this.filterOwner.length >= 2) {
+      this.catKiller();
+      this._apiService
+        .getOwnersByName(this.filterOwner)
+        .subscribe((data) => (this.ownersArray = data.result));
+      this.smallFeedback = false;
+      console.log(this.owners);
+    } else {
+      this.smallFeedback = true;
+    }
+  }
+  catKiller() {
+    let cats = parseInt(this.deadCats);
+    console.log(cats);
+    cats += 1;
+    this.deadCats = cats.toString();
+    console.log(this.deadCats);
+    this.deadCatsCounter.theDeadCatsCounter(this.deadCats);
   }
 
   ngOnInit(): void {
@@ -75,7 +94,13 @@ export class SearchComponent implements OnInit {
       .subscribe((data) => (this.ownersArray = data.result));
     console.log(this.owners);
 
-    this.counter.currentFavs.subscribe((count) => (this.count = count));
+    this.deadCatsCounter.currentDeadCats.subscribe((count) => {
+      this.deadCats = count;
+    });
+
+    this.smallFeedback = false;
+    this.counter.currentFavs.subscribe((count) => (this.countFavs = count));
+    this.catKiller();
   }
 }
 

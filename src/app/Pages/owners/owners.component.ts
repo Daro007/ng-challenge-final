@@ -16,11 +16,13 @@ export class OwnersComponent implements OnInit {
 
   page = '1';
 
-  count: string;
+  countFav: string;
+  deadCats: string;
 
   constructor(
     private _apiService: ApiService,
-    private counter: CountersService
+    private counter: CountersService,
+    private deadCatsCounter: CountersService
   ) {}
 
   showOwnerDetails(param) {
@@ -29,6 +31,7 @@ export class OwnersComponent implements OnInit {
   }
 
   showMore() {
+    this.catKiller();
     const currentPage = parseInt(this.page) + 1;
     this.page = currentPage.toString();
     console.log(`${this.page}`);
@@ -39,18 +42,18 @@ export class OwnersComponent implements OnInit {
     return this.page;
   }
 
-  addToFav(owner) {
+  addToFav(owner: any) {
     if (owner) {
       const currentFavs = JSON.parse(sessionStorage.getItem('favs'));
-      if (currentFavs) {
+      let checkingDuplicates = currentFavs.some((elem) => elem.id === owner.id);
+
+      if (currentFavs && !checkingDuplicates) {
         currentFavs.push(owner);
         sessionStorage.setItem('favs', JSON.stringify(currentFavs));
         this.favCurrentCount();
-        // console.log(JSON.stringify(currentFavs));
       }
-      console.log(currentFavs);
     } else {
-      console.log('no recibi nada aun');
+      return;
     }
   }
 
@@ -58,7 +61,15 @@ export class OwnersComponent implements OnInit {
     this.counter.theFavCounter(
       JSON.parse(sessionStorage.getItem('favs')).length
     );
-    // console.log(JSON.parse(sessionStorage.getItem('favs')).length);
+  }
+
+  catKiller() {
+    let cats = parseInt(this.deadCats);
+    console.log(cats);
+    cats += 1;
+    this.deadCats = cats.toString();
+    console.log(this.deadCats);
+    this.deadCatsCounter.theDeadCatsCounter(this.deadCats);
   }
 
   ngOnInit(): void {
@@ -67,6 +78,12 @@ export class OwnersComponent implements OnInit {
       .subscribe((data) => (this.ownersArray = data.result));
     console.log(this.owners);
 
-    this.counter.currentFavs.subscribe((count) => (this.count = count));
+    // Primer llamado a la API
+
+    this.counter.currentFavs.subscribe((count) => (this.countFav = count));
+    this.deadCatsCounter.currentDeadCats.subscribe((count) => {
+      this.deadCats = count;
+    });
+    this.catKiller();
   }
 }

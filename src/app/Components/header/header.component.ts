@@ -14,13 +14,21 @@ export class HeaderComponent implements OnInit {
     this.favs = currentFavs;
   }
 
-  count: string;
+  countFavs: string;
+  deadCats: string;
 
-  constructor(private counter: CountersService) {}
+  constructor(
+    private counter: CountersService,
+    private deadCatsCounter: CountersService
+  ) {}
 
   // numFav: number;
   ngOnInit(): void {
-    this.counter.currentFavs.subscribe((count) => (this.count = count));
+    this.counter.currentFavs.subscribe((count) => (this.countFavs = count));
+    this.deadCatsCounter.currentDeadCats.subscribe((count) => {
+      this.deadCats = count;
+    });
+
     sessionStorage.setItem('favs', '[]');
   }
 }

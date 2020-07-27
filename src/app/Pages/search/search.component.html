@@ -19,6 +19,9 @@
           Search
         </button>
       </div>
+      <small class="text-danger" *ngIf="smallFeedback"
+        >Please enter al least two characters in order to search</small
+      >
       <table class="table table-striped">
         <thead>
           <tr class="table-header">
@@ -34,6 +37,7 @@
             <td>{{ owner.status }}</td>
           </tr>
         </tbody>
+        <h2 *ngIf="ownersArray.length < 1">No owners found</h2>
       </table>
       <button class="btn btn-primary" (click)="showMore()">Show more</button>
     </div>
