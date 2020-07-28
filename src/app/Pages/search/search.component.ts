@@ -17,6 +17,8 @@ export class SearchComponent implements OnInit {
 
   public smallFeedback: boolean;
 
+  public btnHandler: boolean;
+
   page = '1';
 
   countFavs: string;
@@ -68,6 +70,7 @@ export class SearchComponent implements OnInit {
   }
 
   filterOwnerByName() {
+    this.btnHandler = false;
     if (this.filterOwner && this.filterOwner.length >= 2) {
       this.catKiller();
       this._apiService
@@ -89,6 +92,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.btnHandler = true;
     this._apiService
       .getOwners(this.page)
       .subscribe((data) => (this.ownersArray = data.result));

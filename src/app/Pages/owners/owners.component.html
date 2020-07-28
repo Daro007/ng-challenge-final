@@ -1,5 +1,5 @@
 <div class="loading">
-  <app-loading-spinner *ngIf="ownersArray === []"></app-loading-spinner>
+  <app-loading-spinner *ngIf="ownersArray.length === 0"></app-loading-spinner>
 </div>
 <div>
   <div class="wrapper">
@@ -29,7 +29,9 @@
       <div>
         <h2>{{ rowSelected?.first_name }} {{ rowSelected?.last_name }}</h2>
         <p><strong>Gender: </strong>{{ rowSelected?.gender }}</p>
-        <p><strong>Date of Birth: </strong>{{ rowSelected?.dob }}</p>
+        <p *ngIf="rowSelected?.dob">
+          <strong>Date of Birth: </strong>{{ rowSelected?.dob | filter }}
+        </p>
         <p><strong>E-mail: </strong>{{ rowSelected?.email }}</p>
         <p><strong>Phone: </strong>{{ rowSelected?.phone }}</p>
         <p>

@@ -1,7 +1,3 @@
-<div class="loading">
-  <app-loading-spinner *ngIf="!ownersArray"></app-loading-spinner>
-</div>
-
 <div>
   <div class="wrapper">
     <!-- left column -->
@@ -39,7 +35,9 @@
         </tbody>
         <h2 *ngIf="ownersArray.length < 1">No owners found</h2>
       </table>
-      <button class="btn btn-primary" (click)="showMore()">Show more</button>
+      <button *ngIf="btnHandler" class="btn btn-primary" (click)="showMore()">
+        Show more
+      </button>
     </div>
 
     <!-- right column -->

@@ -8,9 +8,8 @@ describe('OwnersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OwnersComponent ]
-    })
-    .compileComponents();
+      declarations: [OwnersComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
