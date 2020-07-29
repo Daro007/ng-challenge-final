@@ -17,14 +17,12 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer a_mwfxen9au0oxWpDyxT5zSgi67FXCki2kHj',
+        Authorization: 'Bearer YOUR_API_KEY',
       }),
     };
     // console.log(httpOptions.headers.get('Authorization'));
 
-    // Armar funcion para meter al session storage el contador
-    // const count = sessionStorage.get('contador');
-    // sessionStorage.setItem('contador', count + 1);
+    
     return this.http.get(url, httpOptions);
   }
 
@@ -33,7 +31,7 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer a_mwfxen9au0oxWpDyxT5zSgi67FXCki2kHj',
+        Authorization: 'Bearer YOUR_API_KEY',
       }),
     };
     // console.log(httpOptions.headers.get('Authorization'));
