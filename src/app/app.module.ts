@@ -16,7 +16,6 @@ import { OwnersComponent } from './Pages/owners/owners.component';
 // Services
 import { ApiService } from './Services/api.service';
 import { LoadingSpinnerComponent } from './Components/loading-spinner/loading-spinner.component';
-import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { FilterPipe } from './pipes/filter.pipe';
     SearchComponent,
     OwnersComponent,
     LoadingSpinnerComponent,
-    FilterPipe,
   ],
   imports: [
     BrowserModule,

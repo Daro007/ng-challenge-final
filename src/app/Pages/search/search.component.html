@@ -8,12 +8,8 @@
           type="text"
           class="form-control"
           placeholder="Search by name..."
-          name="filterOwner"
-          [(ngModel)]="filterOwner"
+          (keyup)="search($event)"
         />
-        <button class="btn btn-primary" (click)="filterOwnerByName()">
-          Search
-        </button>
       </div>
       <small class="text-danger" *ngIf="smallFeedback"
         >Please enter al least two characters in order to search</small

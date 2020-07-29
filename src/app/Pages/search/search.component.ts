@@ -13,7 +13,6 @@ export class SearchComponent implements OnInit {
   public owners: Observable<any>;
   public ownersArray = [];
   public rowSelected: any;
-  public filterOwner: string;
 
   public smallFeedback: boolean;
 
@@ -69,25 +68,30 @@ export class SearchComponent implements OnInit {
     // console.log(JSON.parse(sessionStorage.getItem('favs')).length);
   }
 
-  filterOwnerByName() {
+  search($event: { target: { value: any } }) {
+    setTimeout(() => {
+      this.filterOwnerByName($event.target.value);
+    }, 1000);
+  }
+
+  filterOwnerByName(event: any) {
     this.btnHandler = false;
-    if (this.filterOwner && this.filterOwner.length >= 2) {
+    if (event && event.length >= 2) {
       this.catKiller();
       this._apiService
-        .getOwnersByName(this.filterOwner)
+        .getOwnersByName(event)
         .subscribe((data) => (this.ownersArray = data.result));
       this.smallFeedback = false;
-      console.log(this.owners);
     } else {
       this.smallFeedback = true;
     }
   }
   catKiller() {
     let cats = parseInt(this.deadCats);
-    console.log(cats);
+    // console.log(cats);
     cats += 1;
     this.deadCats = cats.toString();
-    console.log(this.deadCats);
+    // console.log(this.deadCats);
     this.deadCatsCounter.theDeadCatsCounter(this.deadCats);
   }
 
@@ -96,7 +100,7 @@ export class SearchComponent implements OnInit {
     this._apiService
       .getOwners(this.page)
       .subscribe((data) => (this.ownersArray = data.result));
-    console.log(this.owners);
+    // console.log(this.owners);
 
     this.deadCatsCounter.currentDeadCats.subscribe((count) => {
       this.deadCats = count;
